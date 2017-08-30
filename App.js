@@ -202,7 +202,8 @@ export default class App extends Component {
           <View
             style={{
               height: TEXT_HEIGHT,
-              overflow: 'hidden'
+              overflow: 'hidden',
+              backgroundColor: 'transparent'
             }}>
             <Animated.View
               style={{
