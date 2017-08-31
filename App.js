@@ -99,29 +99,25 @@ export default class App extends Component {
             ? selectedItems.filter(i => i !== item.key)
             : [...selectedItems, item.key];
 
-          Animated.parallel([
-            Animated.timing(this.selectionAnimation, {
-              toValue: -TEXT_HEIGHT * selected.length,
-              duration: 500,
-              easing: Easing.elastic(1.3)
-            }),
-            Animated.timing(item.animated, {
-              toValue: 0,
-              duration: 300
-            })
-          ]).start(() => {
-            this.setState(
-              {
-                selectedItems: selected
-              },
-              () => {
+          item.animated.setValue(0);
+          this.setState(
+            {
+              selectedItems: selected
+            },
+            () => {
+              Animated.parallel([
+                Animated.timing(this.selectionAnimation, {
+                  toValue: -TEXT_HEIGHT * selected.length,
+                  duration: 500,
+                  easing: Easing.elastic(1.3)
+                }),
                 Animated.timing(item.animated, {
                   toValue: 1,
-                  duration: 300
-                }).start();
-              }
-            );
-          });
+                  duration: 200
+                })
+              ]).start();
+            }
+          );
         }}
         style={{
           opacity: 1 - parseInt(item.s) / 15
